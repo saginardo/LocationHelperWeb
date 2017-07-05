@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+                           http://www.springframework.org/schema/beans/spring-beans.xsd
+                           http://www.springframework.org/schema/mvc
+                           http://www.springframework.org/schema/mvc/spring-mvc.xsd
+                           http://www.springframework.org/schema/aop
+       					   http://www.springframework.org/schema/aop/spring-aop.xsd
+                           http://www.springframework.org/schema/tx
+       					   http://www.springframework.org/schema/tx/spring-tx.xsd
+       					   http://www.springframework.org/schema/context
+       					   http://www.springframework.org/schema/context/spring-context.xsd">
+
+
+    <!--使用 支持组件扫描-->
+    <context:component-scan base-package="com.notinglife.webapp.LocationHelper"/>
+
+    <!-- 自动扫描 匹配器mapping和适配器handler 和适配器-->
+    <mvc:annotation-driven></mvc:annotation-driven>
+
+
+    <!-- 视图解析器  -->
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>
+        <property name="prefix" value="/WEB-INF/jsp/"/>
+        <property name="suffix" value=".jsp"/>
+    </bean>
+
+    <!--表单上传-->
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <property name="defaultEncoding" value="utf-8"/>
+        <property name="maxUploadSize" value="10485760000"/>
+        <property name="maxInMemorySize" value="40960"/>
+    </bean>
+
+
+<!--    <mvc:annotation-driven conversion-service="conversionService" validator="validator"/>
+
+
+    <bean id="conversionService" class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
+        <property name="converters">
+            <set>
+                <bean class="com.notinglife.Day01.controller.converter.CustomDateConverter"/>
+            </set>
+        </property>
+    </bean>-->
+
+
+    <!--
+        <bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean">
+            <property name="providerClass"  value="org.hibernate.validator.HibernateValidator"/>
+            <property name="validationMessageSource" ref="messageSource"/>
+        </bean>
+
+        <bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+            <property name="basenames">
+                <list>
+                    <value>classpath:customValidationMessages</value>
+                </list>
+            </property>
+            <property name="fileEncodings" value="utf-8"/>
+            <property name="cacheSeconds" value="120"/>
+        </bean>
+
+        <mvc:interceptors>
+            <mvc:interceptor>
+                <mvc:mapping path="/**"/>
+                <bean clacom.notinglife.webapppps.LocationHelper.interceptor.LoginInterceptor"/>
+            </mvc:interceptor>
+        </mvc:interceptors>-->
+
+</beans>

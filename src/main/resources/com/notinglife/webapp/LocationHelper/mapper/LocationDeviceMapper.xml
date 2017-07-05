@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- namespace命名空间，作用就是对sql进行分类化管理，理解sql隔离
+注意：使用mapper代理方法开发，namespace有特殊重要的作用
+-->
+<mapper namespace="com.notinglife.webapp.LocationHelper.mapper.LocationDeviceMapper">
+
+    <select id="findDeviceById" parameterType="String"
+            resultType="LocationDevice">  <!--使用了sqlMapConfig.xml中的别名来简化-->
+        SELECT *
+        FROM devices
+        WHERE deviceId = #{value}
+    </select>
+
+    <select id="findDeviceAll" resultType="LocationDevice">
+        SELECT *
+        FROM devices
+    </select>
+
+    <!-- 删除设备 -->
+    <delete id="deleteDeviceById" parameterType="String">
+        DELETE FROM devices
+        WHERE deviceId = #{value}
+    </delete>
+
+    <!--修改设备-->
+    <update id="updateDevice" parameterType="LocationDevice">
+        UPDATE devices
+        SET deviceId = #{deviceId}, macAddress = #{macAddress}, latitude = #{latitude}, longitude = #{longitude},
+            owner    = #{owner}, deviceStatus = #{deviceStatus}
+        WHERE deviceId = #{deviceId}
+    </update>
+
+    <!--mysql自增主键返回-->
+    <insert id="insertDevice" parameterType="LocationDevice">
+        <selectKey keyProperty="id" order="AFTER" resultType="Integer">
+            select LAST_INSERT_ID()
+        </selectKey>
+        insert into devices(deviceId,macAddress,latitude,longitude,owner,deviceStatus)
+        values(#{deviceId},#{macAddress},#{latitude},#{longitude},#{owner},#{deviceStatus})
+    </insert>
+
+    <!--Mysql UUID主键-->
+    <insert id="insertDeviceUUID" parameterType="LocationDevice">
+        <selectKey resultType="String" order="BEFORE"
+                   keyProperty="id">
+            select uuid()
+        </selectKey>
+        insert into devices(deviceId,macAddress,latitude,longitude,owner,deviceStatus)
+        values(#{deviceId},#{macAddress},#{latitude},#{longitude},#{owner},#{deviceStatus})
+    </insert>
+
+    <cache type="org.mybatis.caches.ehcache.EhcacheCache" >
+
+    </cache>
+
+
+</mapper>
