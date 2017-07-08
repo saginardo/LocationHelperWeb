@@ -303,47 +303,21 @@
         <div id="tree-wrap">
             <div class="side-bar">
                 <ul class="topnav menu-left-nest">
-                    <%--<li>
-                        <a href="#" style="border-left:0px solid!important;" class="title-menu-left">
-
-                            <span class="widget-menu"></span>
-                            <i data-toggle="tooltip" class="entypo-cog pull-right config-wrap"></i>
-
-                        </a>
-                    </li>--%>
-
                     <li>
-                        <a class="tooltip-tip ajax-load" href="#" title="Blog App">
-                            <i class="icon-document-edit"></i>
-                            <span>设备管理</span>
-                        </a>
-                        <ul>
-                            <li>
-                                <a class="tooltip-tip2 ajax-load"
-                                   href=${pageContext.request.contextPath}/queryDevices.action title="全部设备"><i
-                                        class="entypo-doc-text"></i><span>全部设备</span></a>
-                            </li>
-                            <li>
-                                <a class="tooltip-tip2 ajax-load" href="#"
-                                   title="离线设备"><i
-                                        class="entypo-newspaper"></i><span>离线设备</span></a>
-                            </li>
-                        </ul>
+                        <a class="tooltip-tip2 ajax-load"
+                           href=${pageContext.request.contextPath}/queryDevices.action title="全部设备"><i
+                                class="entypo-doc-text"></i><span>全部设备</span></a>
                     </li>
-                   <%-- <li>
-                        <a class="tooltip-tip ajax-load" href="#" title="测试页面3">
-                            <i class="icon-feed"></i>
-                            <span>测试页面3</span>
 
-                        </a>
-                    </li>
+                </ul>
+
+                <ul class="topnav menu-left-nest">
                     <li>
-                        <a class="tooltip-tip ajax-load" href="#" title="测试页面4">
-                            <i class="icon-camera"></i>
-                            <span>测试页面4</span>
-
-                        </a>
-                    </li>--%>
+                        <a class="tooltip-tip2 ajax-load"
+                           href=${pageContext.request.contextPath}/queryOffLineDevices.action
+                           title="离线设备"><i
+                                class="entypo-newspaper"></i><span>离线设备</span></a>
+                    </li>
                 </ul>
 
                 <%--<ul class="topnav menu-left-nest">
@@ -661,7 +635,7 @@
             </li>
             <li><i class="fa fa-lg fa-angle-right"></i>
             </li>
-            <li><a href=${pageContext.request.contextPath }/queryDevices.action >全部设备</a>
+            <li><a href="#" >离线设备</a>
             </li>
             <li class="pull-right">
                 <div class="input-group input-widget">
