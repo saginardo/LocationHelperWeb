@@ -12,12 +12,12 @@
             <!-- 如果生成日期，会造成即使修改一个字段，整个实体类所有属性都会发生变化，不利于版本控制，所以设置为true -->
             <property name="suppressDate" value="true" />
             <!-- 是否去除自动生成的注释 true：是 ： false:否 -->
-            <property name="suppressAllComments" value="false" />
+            <property name="suppressAllComments" value="true" />
         </commentGenerator>
         <!--数据库链接URL，用户名、密码 -->
         <jdbcConnection driverClass="com.mysql.jdbc.Driver"
-                        connectionURL="jdbc:mysql://120.24.209.241:5306/day15?characterEncoding=utf8&amp;serverTimezone=UTC&amp;useSSL=false"
-                        userId="root"
+                        connectionURL="jdbc:mysql://119.28.18.48:5506/location_helper?characterEncoding=utf8&amp;serverTimezone=UTC&amp;useSSL=false"
+                        userId="admin"
                         password="Jiuhong@7873">
         </jdbcConnection>
         <javaTypeResolver>
@@ -26,38 +26,38 @@
             <property name="forceBigDecimals" value="false" />
         </javaTypeResolver>
         <!-- 生成模型的包名和位置 -->
-        <javaModelGenerator targetPackage="com.notinglife.Day01.po"
+        <javaModelGenerator targetPackage="com.notinglife.webapp.LocationHelper.domain"
                             targetProject="target">
             <property name="enableSubPackages" value="true" />
             <property name="trimStrings" value="true" />
         </javaModelGenerator>
         <!-- 生成映射文件的包名和位置 -->
-        <sqlMapGenerator targetPackage="com.notinglife.Day01.mapper"
+        <sqlMapGenerator targetPackage="com.notinglife.webapp.LocationHelper.mapper"
                          targetProject="target">
             <property name="enableSubPackages" value="true" />
         </sqlMapGenerator>
         <!-- 生成DAO的包名和位置 -->
         <javaClientGenerator type="XMLMAPPER"
-                             targetPackage="com.notinglife.Day01.mapper" implementationPackage="com.notinglife.Day01.mapper.impl"  targetProject="target">
+                             targetPackage="com.notinglife.webapp.LocationHelper.mapper" implementationPackage="com.notinglife.webapp.LocationHelper.mapper.impl"  targetProject="target">
             <property name="enableSubPackages" value="true" />
         </javaClientGenerator>
 
         <!-- 要生成哪些表 -->
+        <table tableName="device" domainObjectName="LocationDevice"
+               enableCountByExample="false" enableUpdateByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false"
+               selectByExampleQueryId="false"/>
         <table tableName="user" domainObjectName="User"
                enableCountByExample="false" enableUpdateByExample="false"
                enableDeleteByExample="false" enableSelectByExample="false"
                selectByExampleQueryId="false"/>
-        <table tableName="orders" domainObjectName="Orders"
-               enableCountByExample="false" enableUpdateByExample="false"
-               enableDeleteByExample="false" enableSelectByExample="false"
-               selectByExampleQueryId="false"/>
-        <table tableName="items" domainObjectName="Items"
+<!--        <table tableName="items" domainObjectName="Items"
                enableCountByExample="false" enableUpdateByExample="false"
                enableDeleteByExample="false" enableSelectByExample="false"
                selectByExampleQueryId="false"/>
         <table tableName="orderdetail" domainObjectName="Orderdetail"
                enableCountByExample="false" enableUpdateByExample="false"
                enableDeleteByExample="false" enableSelectByExample="false"
-               selectByExampleQueryId="false"/>
+               selectByExampleQueryId="false"/>-->
     </context>
 </generatorConfiguration>

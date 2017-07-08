@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.notinglife.webapp.LocationHelper.mapper.DeviceCustomMapper">
+
+    <resultMap id="BaseResultMap" type="com.notinglife.webapp.LocationHelper.domain.DeviceCustom">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="device_id" jdbcType="VARCHAR" property="deviceId"/>
+        <result column="user_id" jdbcType="INTEGER" property="userId"/>
+        <result column="mac_address" jdbcType="VARCHAR" property="macAddress"/>
+        <result column="latitude" jdbcType="VARCHAR" property="latitude"/>
+        <result column="longitude" jdbcType="VARCHAR" property="longitude"/>
+        <result column="online" jdbcType="BIT" property="online"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+        <association property="user" javaType="com.notinglife.webapp.LocationHelper.domain.User">
+            <result property="username" jdbcType="VARCHAR" column="username"/>
+        </association>
+    </resultMap>
+
+    <select id="findDeviceById" parameterType="Integer" resultMap="BaseResultMap">
+        SELECT
+        user.username,
+        device.*
+        FROM user, device
+        WHERE user.id = device.user_id AND device.id=#{id};
+    </select>
+
+    <select id="findDeviceByDeviceId" parameterType="String" resultMap="BaseResultMap">
+        SELECT
+        user.username,
+        device.*
+        FROM user, device
+        WHERE user.id = device.user_id AND device.device_id=#{deviceId};
+    </select>
+
+    <select id="findDeviceList" resultMap="BaseResultMap">
+        SELECT
+            user.username,
+            device.*
+        FROM user, device
+        WHERE user.id = device.user_id
+        ORDER BY device_id ASC;
+    </select>
+
+    <select id="findOffLineDeviceList" resultMap="BaseResultMap">
+        SELECT
+        user.username,
+        device.*
+        FROM user, device
+        WHERE user.id = device.user_id AND device.online = FALSE
+        ORDER BY device_id ASC;
+    </select>
+
+    <!-- 删除设备 -->
+    <delete id="deleteDeviceById" parameterType="Integer">
+        DELETE FROM device
+        WHERE id = #{id}
+    </delete>
+
+    <!--修改设备-->
+    <update id="updateDevice" parameterType="LocationDevice">
+        UPDATE device
+        SET device_id     = #{deviceId}, user_id = #{userId}, mac_address = #{macAddress}, latitude = #{latitude},
+        longitude     = #{longitude},
+        online = #{online}, create_time = #{createTime}, update_time = #{updateTime}
+        WHERE device_id = #{deviceId}
+    </update>
+
+
+
+    <update id="updateDeviceSelective" parameterType="com.notinglife.webapp.LocationHelper.domain.DeviceCustom">
+        update device
+        <set>
+            <if test="deviceId != null">
+                device_id = #{deviceId,jdbcType=VARCHAR},
+            </if>
+            <if test="userId != null">
+                user_id = #{userId,jdbcType=INTEGER},
+            </if>
+            <if test="user.username != null">
+                user_id = (SELECT user.id from user WHERE user.username = #{user.username,jdbcType=VARCHAR}),
+            </if>
+            <if test="macAddress != null">
+                mac_address = #{macAddress,jdbcType=VARCHAR},
+            </if>
+            <if test="latitude != null">
+                latitude = #{latitude,jdbcType=VARCHAR},
+            </if>
+            <if test="longitude != null">
+                longitude = #{longitude,jdbcType=VARCHAR},
+            </if>
+            <if test="online != null">
+                online = #{online,jdbcType=BIT},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+
+
+
+    <!--mysql自增主键返回-->
+    <insert id="insertDevice" parameterType="LocationDevice">
+        <selectKey keyProperty="id" order="AFTER" resultType="Integer">
+            select LAST_INSERT_ID()
+        </selectKey>
+        insert into device(device_id,user_id,mac_address,latitude,longitude,online,create_time,update_time)
+        values(#{deviceId},#{userId},#{macAddress},#{latitude},#{longitude},#{online},#{createTime},#{updateTime})
+    </insert>
+
+    <!--Mysql UUID主键-->
+    <insert id="insertDeviceUUID" parameterType="LocationDevice">
+        <selectKey resultType="String" order="BEFORE"
+                   keyProperty="id">
+            select uuid()
+        </selectKey>
+        insert into device(device_id,user_id,mac_address,latitude,longitude,online,create_time,update_time)
+        values(#{deviceId},#{userId},#{macAddress},#{latitude},#{longitude},#{online},#{createTime},#{updateTime})
+    </insert>
+
+    <cache type="org.mybatis.caches.ehcache.EhcacheCache">
+
+    </cache>
+</mapper>

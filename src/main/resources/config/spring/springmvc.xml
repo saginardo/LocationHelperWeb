@@ -21,7 +21,7 @@
     <context:component-scan base-package="com.notinglife.webapp.LocationHelper"/>
 
     <!-- 自动扫描 匹配器mapping和适配器handler 和适配器-->
-    <mvc:annotation-driven></mvc:annotation-driven>
+    <mvc:annotation-driven conversion-service="conversionService" validator="validator"/>
 
 
     <!-- 视图解析器  -->
@@ -39,39 +39,40 @@
     </bean>
 
 
-<!--    <mvc:annotation-driven conversion-service="conversionService" validator="validator"/>
-
-
     <bean id="conversionService" class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
         <property name="converters">
             <set>
-                <bean class="com.notinglife.Day01.controller.converter.CustomDateConverter"/>
+                <bean class="com.notinglife.webapp.LocationHelper.controller.converter.CustomDateConverter"/>
             </set>
         </property>
-    </bean>-->
+    </bean>
+
+    <!--配置校验器，检查前端输入合法性-->
+    <bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean">
+        <property name="providerClass" value="org.hibernate.validator.HibernateValidator"/>
+        <property name="validationMessageSource" ref="messageSource"/>
+    </bean>
+    <!--配置校验器消息-->
+    <bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+        <property name="basenames">
+            <list>
+                <value>classpath:customValidationMessages</value>
+            </list>
+        </property>
+        <property name="fileEncodings" value="utf-8"/>
+        <property name="cacheSeconds" value="120"/>
+    </bean>
 
 
-    <!--
-        <bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean">
-            <property name="providerClass"  value="org.hibernate.validator.HibernateValidator"/>
-            <property name="validationMessageSource" ref="messageSource"/>
-        </bean>
+    <!-- 异常处理器 -->
+    <bean id="handlerExceptionResolver" class="com.notinglife.webapp.LocationHelper.controller.exceptionResolver.CustomExceptionResolver"/>
 
-        <bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
-            <property name="basenames">
-                <list>
-                    <value>classpath:customValidationMessages</value>
-                </list>
-            </property>
-            <property name="fileEncodings" value="utf-8"/>
-            <property name="cacheSeconds" value="120"/>
-        </bean>
 
-        <mvc:interceptors>
-            <mvc:interceptor>
-                <mvc:mapping path="/**"/>
-                <bean clacom.notinglife.webapppps.LocationHelper.interceptor.LoginInterceptor"/>
-            </mvc:interceptor>
-        </mvc:interceptors>-->
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <mvc:mapping path="/**"/>
+            <bean class="com.notinglife.webapp.LocationHelper.interceptor.LoginInterceptor"/>
+        </mvc:interceptor>
+    </mvc:interceptors>
 
 </beans>

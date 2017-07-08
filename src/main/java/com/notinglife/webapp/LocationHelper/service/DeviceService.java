@@ -1,6 +1,6 @@
 package com.notinglife.webapp.LocationHelper.service;
 
-import com.notinglife.webapp.LocationHelper.domain.LocationDevice;
+import com.notinglife.webapp.LocationHelper.domain.DeviceCustom;
 
 import java.util.List;
 
@@ -13,5 +13,21 @@ import java.util.List;
  */
 public interface DeviceService {
 
-    List<LocationDevice> findDeviceAll() throws Exception;
+
+
+    //包装类添加
+    int addDevice(DeviceCustom locationDevice) throws Exception;
+    //包装类删除
+    int deleteDeviceById(Integer id) throws Exception;
+
+    //包装类修改
+    int saveDevice(DeviceCustom locationDevice) throws Exception;
+    int saveDeviceSelective(DeviceCustom locationDevice) throws  Exception;
+
+    //包装类查询
+    List<DeviceCustom> findDeviceList() throws Exception;
+    List<DeviceCustom> findOffLineDeviceList() throws Exception;
+    DeviceCustom findDeviceByDeviceId(String deviceId) throws Exception;
+    DeviceCustom findDeviceById(Integer id) throws  Exception;
+
 }
