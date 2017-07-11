@@ -22,30 +22,22 @@ public class JavaWebToken {
     private static final String TAG = "JavaWebToken";
     private static Logger logger = LogManager.getLogger(TAG);
 
-    private static Key getKeyInstance() {
+    private static Key getKeyInstance(String secretKey) {
 
         SignatureAlgorithm signatureAlgorithm = SignatureAlgorithm.HS256;
-        byte[] apiKeySecretBytes = DatatypeConverter.parseBase64Binary("LocationHelper");
+        byte[] apiKeySecretBytes = DatatypeConverter.parseBase64Binary(secretKey);
         Key signingKey = new SecretKeySpec(apiKeySecretBytes, signatureAlgorithm.getJcaName());
         return signingKey;
     }
 
-    public static String createJavaWebToken(Map<String, Object> claims) {
+    public static String createJavaWebToken(Map<String, Object> claims, String secretKey) {
         return Jwts.builder().setClaims(claims)
-                            .signWith(SignatureAlgorithm.HS256, getKeyInstance())
-                            .compact();
+                .signWith(SignatureAlgorithm.HS256, getKeyInstance(secretKey))
+                .compact();
     }
 
-    public static Map<String, Object> verifyJavaWebToken(String jwt) {
-        try {
-
-            Map<String, Object> jwtClaims =
-                    Jwts.parser().setSigningKey(getKeyInstance()).parseClaimsJws(jwt).getBody();
-            return jwtClaims;
-        } catch (Exception e) {
-            logger.error("json web token 验证失败");
-            return null;
-        }
+    public static Map<String, Object> verifyJavaWebToken(String jwt,String secretKey) throws Exception {
+        return Jwts.parser().setSigningKey(getKeyInstance(secretKey)).parseClaimsJws(jwt).getBody();
     }
 
 }

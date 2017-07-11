@@ -75,14 +75,14 @@
                     <%--<ul style="margin: 11px 0 0 9px;" role="menu" class="dropdown-menu dropdown-wrap">
                         <li>
                             <a href="#">
-                                <img alt="" class="img-msg img-circle"
+                                <img alt="" class="img-message img-circle"
                                      src="http://api.randomuser.me/portraits/thumb/men/1.jpg">Jhon Doe <b>Just Now</b>
                             </a>
                         </li>
                         <li class="divider"></li>
                         <li>
                             <a href="#">
-                                <img alt="" class="img-msg img-circle"
+                                <img alt="" class="img-message img-circle"
                                      src="http://api.randomuser.me/portraits/thumb/women/1.jpg">Jeniffer <b>3 Min
                                 Ago</b>
                             </a>
@@ -90,14 +90,14 @@
                         <li class="divider"></li>
                         <li>
                             <a href="#">
-                                <img alt="" class="img-msg img-circle"
+                                <img alt="" class="img-message img-circle"
                                      src="http://api.randomuser.me/portraits/thumb/men/2.jpg">Dave <b>2 Hours Ago</b>
                             </a>
                         </li>
                         <li class="divider"></li>
                         <li>
                             <a href="#">
-                                <img alt="" class="img-msg img-circle"
+                                <img alt="" class="img-message img-circle"
                                      src="http://api.randomuser.me/portraits/thumb/men/3.jpg"><i>Keanu</i> <b>1 Day
                                 Ago</b>
                             </a>
@@ -105,7 +105,7 @@
                         <li class="divider"></li>
                         <li>
                             <a href="#">
-                                <img alt="" class="img-msg img-circle"
+                                <img alt="" class="img-message img-circle"
                                      src="http://api.randomuser.me/portraits/thumb/men/4.jpg"><i>Masashi</i> <b>2 Mounth
                                 Ago</b>
                             </a>
@@ -299,47 +299,21 @@
         <div id="tree-wrap">
             <div class="side-bar">
                 <ul class="topnav menu-left-nest">
-                    <%--<li>
-                        <a href="#" style="border-left:0px solid!important;" class="title-menu-left">
-
-                            <span class="widget-menu"></span>
-                            <i data-toggle="tooltip" class="entypo-cog pull-right config-wrap"></i>
-
-                        </a>
-                    </li>--%>
-
                     <li>
-                        <a class="tooltip-tip ajax-load" href="#" title="Blog App">
-                            <i class="icon-document-edit"></i>
-                            <span>设备管理</span>
-
-                        </a>
-                        <ul>
-                            <li>
-                                <a class="tooltip-tip2 ajax-load"
-                                   href=${pageContext.request.contextPath}/queryDevices.action title="全部设备"><i
-                                        class="entypo-doc-text"></i><span>全部设备</span></a>
-                            </li>
-                            <li>
-                                <a class="tooltip-tip2 ajax-load" href=${pageContext.request.contextPath}/queryOffLineDevices.action title="离线设备"><i
-                                        class="entypo-newspaper"></i><span>离线设备</span></a>
-                            </li>
-                        </ul>
+                        <a class="tooltip-tip2 ajax-load"
+                           href=${pageContext.request.contextPath}/queryDevices.action title="全部设备"><i
+                                class="entypo-doc-text"></i><span>全部设备</span></a>
                     </li>
-<%--                    <li>
-                        <a class="tooltip-tip ajax-load" href="#" title="测试页面3">
-                            <i class="icon-feed"></i>
-                            <span>测试页面3</span>
 
-                        </a>
-                    </li>
+                </ul>
+
+                <ul class="topnav menu-left-nest">
                     <li>
-                        <a class="tooltip-tip ajax-load" href="#" title="测试页面4">
-                            <i class="icon-camera"></i>
-                            <span>测试页面4</span>
-
-                        </a>
-                    </li>--%>
+                        <a class="tooltip-tip2 ajax-load"
+                           href=${pageContext.request.contextPath}/queryOffLineDevices.action
+                           title="离线设备"><i
+                                class="entypo-newspaper"></i><span>离线设备</span></a>
+                    </li>
                 </ul>
 
                 <%--<ul class="topnav menu-left-nest">

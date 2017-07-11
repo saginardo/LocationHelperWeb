@@ -2,10 +2,10 @@
 <configuration status="warn">
     <appenders>
         <Console name="Console" target="SYSTEM_OUT">
-            <PatternLayout pattern="[%level] %highlight{%d{HH:mm:ss.SSS} %logger{36}.%M() @%L - %msg%xEx%n}{FATAL=Bright Red, ERROR=Bright Magenta, WARN=Bright Yellow, INFO=Bright Green, DEBUG=Bright Cyan, TRACE=Bright White}"/>
+            <PatternLayout pattern="[%level] %highlight{%d{HH:mm:ss.SSS} %logger{36}.%M() @%L - %message%xEx%n}{FATAL=Bright Red, ERROR=Bright Magenta, WARN=Bright Yellow, INFO=Bright Green, DEBUG=Bright Cyan, TRACE=Bright White}"/>
         </Console>
 <!--        <File name="File" fileName="src/log/test.log" append="false">
-            <PatternLayout pattern="[%-5level] %d{HH:mm:ss.SSS}  %logger{36}.%M() @%L - %msg%xEx%n"/>
+            <PatternLayout pattern="[%-5level] %d{HH:mm:ss.SSS}  %logger{36}.%M() @%Lmessage%msg%xEx%n"/>
         </File>-->
     </appenders>
 

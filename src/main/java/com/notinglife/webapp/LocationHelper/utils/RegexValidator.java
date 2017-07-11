@@ -39,6 +39,13 @@ public class RegexValidator {
     public static final String REGEX_EMAIL = "^([a-z0-9A-Z]+[-|\\.]?)+[a-z0-9A-Z]@([a-z0-9A-Z]+(-[a-z0-9A-Z]+)?\\.)+[a-zA-Z]{2,}$";
 
     /**
+     * 拦截器的正则
+     * 以任意字符开头，必须包含 特定字符串 并以action结尾的请求，
+     * 匹配则通过
+     */
+    public static final String REGEX_INTERCEPTOR = ".*(login|register|appLogin|refreshToken|appRegister)+\\.action$";
+
+    /**
      * 正则表达式:验证汉字(1-9个汉字)  {1,9} 自定义区间
      */
     public static final String REGEX_CHINESE = "^[\u4e00-\u9fa5]{1,9}$";
@@ -161,6 +168,10 @@ public class RegexValidator {
 
     public static boolean isDeviceID(String deviceID){
         return Pattern.matches(REGEX_DEVICE_ID,deviceID);
+    }
+
+    public static boolean isUrlInterceptor(String url){
+        return Pattern.matches(REGEX_INTERCEPTOR,url);
     }
 
 }

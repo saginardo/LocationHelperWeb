@@ -28,6 +28,11 @@ public class UserServiceImpl  implements UserService{
     }
 
     @Override
+    public User findByEmailAddress(String emailAddress) throws Exception {
+        return userMapper.findByEmailAddress(emailAddress);
+    }
+
+    @Override
     public User findByPrimaryKey(Integer id) throws Exception {
         User user = userMapper.findByPrimaryKey(id);
         return user;
@@ -37,5 +42,11 @@ public class UserServiceImpl  implements UserService{
     public List<User> findUserAll() throws Exception {
         List<User> list = userMapper.findUserAll();
         return list;
+    }
+
+    @Override
+    public int addUser(User user) throws Exception {
+        int insert = userMapper.insert(user);
+        return insert;
     }
 }

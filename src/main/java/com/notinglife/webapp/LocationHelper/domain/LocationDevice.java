@@ -1,5 +1,6 @@
 package com.notinglife.webapp.LocationHelper.domain;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.notinglife.webapp.LocationHelper.utils.RegexValidator;
 
 import javax.validation.constraints.Pattern;
@@ -10,7 +11,6 @@ public class LocationDevice implements Serializable {
     private Integer id;
     @Pattern(regexp = RegexValidator.REGEX_DEVICE_ID, message = "{device.id.length.error}")
     private String deviceId;
-
     private Integer userId;
     @Pattern(regexp = RegexValidator.REGEX_MAC_ADDR, message = "{device.mac.address.error}")
     private String macAddress;
@@ -81,18 +81,19 @@ public class LocationDevice implements Serializable {
         this.online = online;
     }
 
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone="GMT+8")
     public Date getCreateTime() {
         return createTime;
     }
-
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone="GMT+8")
     public void setCreateTime(Date createTime) {
         this.createTime = createTime;
     }
-
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone="GMT+8")
     public Date getUpdateTime() {
         return updateTime;
     }
-
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone="GMT+8")
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
     }

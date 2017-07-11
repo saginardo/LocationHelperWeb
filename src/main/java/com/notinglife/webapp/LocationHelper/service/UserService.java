@@ -14,6 +14,8 @@ import java.util.List;
 public interface UserService {
 
     User findByUserName(String username) throws Exception;
+    User findByEmailAddress(String emailAddress) throws Exception;
     User findByPrimaryKey(Integer id) throws Exception;
     List<User> findUserAll() throws Exception;
+    int addUser(User user) throws Exception;
 }

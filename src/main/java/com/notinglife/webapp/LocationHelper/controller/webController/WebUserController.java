@@ -1,8 +1,7 @@
-package com.notinglife.webapp.LocationHelper.controller;
+package com.notinglife.webapp.LocationHelper.controller.webController;
 
 import com.notinglife.webapp.LocationHelper.domain.User;
 import com.notinglife.webapp.LocationHelper.service.impl.UserServiceImpl;
-import com.notinglife.webapp.LocationHelper.utils.AuthUtil;
 import com.notinglife.webapp.LocationHelper.utils.Md5Encoder;
 import org.apache.logging.log4j.LogManager;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +13,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -24,10 +22,10 @@ import java.util.Date;
  * @author saginardo
  * @date 2017-04-14 9:25
  */
-@Controller("LoginController")
-public class LoginController {
+@Controller("webUserController")
+public class WebUserController {
 
-    private static final String TAG = "LoginController";
+    private static final String TAG = "WebUserController";
     private static org.apache.logging.log4j.Logger logger = LogManager.getLogger(TAG);
 
     @Autowired
@@ -44,20 +42,8 @@ public class LoginController {
             request.setAttribute("message", "用户名和密码不匹配，请重试!");
             return "forward:/login.jsp";
         } else if (md5Password.equals(user.getPassword())) {
-
-
             // /把用户登录信息放进Session
             session.setAttribute("user", user);
-            int expirationTime = 3600; //1小时内操作不需要重新登录
-            String sessionId = AuthUtil.requestToken(user, expirationTime);
-            logger.info("sessionId : " + sessionId);
-            Cookie cookie = new Cookie("sessionId", sessionId);
-            cookie.setMaxAge(expirationTime);
-            cookie.setHttpOnly(true);
-            cookie.setSecure(true);
-
-            response.addCookie(cookie);
-
             return "redirect:/queryDevices.action";
         } else {
             request.setAttribute("message", "用户名和密码不匹配，请重试!");
@@ -89,5 +75,6 @@ public class LoginController {
         //提示激活邮箱后登录
         return "redirect:/login.jsp";
     }
+
 
 }

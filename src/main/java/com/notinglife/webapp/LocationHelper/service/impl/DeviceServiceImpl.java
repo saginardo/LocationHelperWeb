@@ -1,6 +1,7 @@
 package com.notinglife.webapp.LocationHelper.service.impl;
 
 import com.notinglife.webapp.LocationHelper.domain.DeviceCustom;
+import com.notinglife.webapp.LocationHelper.domain.LocationDevice;
 import com.notinglife.webapp.LocationHelper.exception.CustomException;
 import com.notinglife.webapp.LocationHelper.mapper.DeviceCustomMapper;
 import com.notinglife.webapp.LocationHelper.service.DeviceService;
@@ -68,6 +69,12 @@ public class DeviceServiceImpl implements DeviceService {
         DeviceCustom device = deviceCustomMapper.findDeviceById(id);
         //logger.info("查询到的设备是" + device);
         return device;
+    }
+
+    @Override
+    public List<LocationDevice> findDeviceListOnly() throws Exception {
+        List<LocationDevice> deviceListOnly = deviceCustomMapper.findDeviceListOnly();
+        return deviceListOnly;
     }
 
     @Override

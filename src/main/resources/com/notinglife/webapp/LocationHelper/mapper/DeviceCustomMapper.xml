@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.notinglife.webapp.LocationHelper.mapper.DeviceCustomMapper">
 
-    <resultMap id="BaseResultMap" type="com.notinglife.webapp.LocationHelper.domain.DeviceCustom">
+    <resultMap id="DeviceCustom" type="com.notinglife.webapp.LocationHelper.domain.DeviceCustom">
         <id column="id" jdbcType="INTEGER" property="id"/>
         <result column="device_id" jdbcType="VARCHAR" property="deviceId"/>
         <result column="user_id" jdbcType="INTEGER" property="userId"/>
@@ -17,7 +17,19 @@
         </association>
     </resultMap>
 
-    <select id="findDeviceById" parameterType="Integer" resultMap="BaseResultMap">
+    <resultMap id="LocationDeviceMap" type="com.notinglife.webapp.LocationHelper.domain.LocationDevice">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="device_id" jdbcType="VARCHAR" property="deviceId"/>
+        <result column="user_id" jdbcType="INTEGER" property="userId"/>
+        <result column="mac_address" jdbcType="VARCHAR" property="macAddress"/>
+        <result column="latitude" jdbcType="VARCHAR" property="latitude"/>
+        <result column="longitude" jdbcType="VARCHAR" property="longitude"/>
+        <result column="online" jdbcType="BIT" property="online"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+    </resultMap>
+
+    <select id="findDeviceById" parameterType="Integer" resultMap="DeviceCustom">
         SELECT
         user.username,
         device.*
@@ -25,7 +37,7 @@
         WHERE user.id = device.user_id AND device.id=#{id};
     </select>
 
-    <select id="findDeviceByDeviceId" parameterType="String" resultMap="BaseResultMap">
+    <select id="findDeviceByDeviceId" parameterType="String" resultMap="DeviceCustom">
         SELECT
         user.username,
         device.*
@@ -33,7 +45,7 @@
         WHERE user.id = device.user_id AND device.device_id=#{deviceId};
     </select>
 
-    <select id="findDeviceList" resultMap="BaseResultMap">
+    <select id="findDeviceList" resultMap="DeviceCustom">
         SELECT
             user.username,
             device.*
@@ -42,13 +54,18 @@
         ORDER BY device_id ASC;
     </select>
 
-    <select id="findOffLineDeviceList" resultMap="BaseResultMap">
+    <select id="findOffLineDeviceList" resultMap="DeviceCustom">
         SELECT
         user.username,
         device.*
         FROM user, device
         WHERE user.id = device.user_id AND device.online = FALSE
         ORDER BY device_id ASC;
+    </select>
+
+    <select id="findDeviceListOnly" resultMap="LocationDeviceMap">
+        SELECT  *
+        FROM device;
     </select>
 
     <!-- 删除设备 -->
@@ -68,7 +85,7 @@
 
 
 
-    <update id="updateDeviceSelective" parameterType="com.notinglife.webapp.LocationHelper.domain.DeviceCustom">
+    <update id="updateDeviceSelective" parameterType="DeviceCustom">
         update device
         <set>
             <if test="deviceId != null">

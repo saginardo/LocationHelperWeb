@@ -1,6 +1,7 @@
 package com.notinglife.webapp.LocationHelper.mapper;
 
 import com.notinglife.webapp.LocationHelper.domain.DeviceCustom;
+import com.notinglife.webapp.LocationHelper.domain.LocationDevice;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -17,6 +18,7 @@ public interface DeviceCustomMapper {
 
     List<DeviceCustom> findDeviceList() throws Exception;
     List<DeviceCustom> findOffLineDeviceList() throws Exception;
+    List<LocationDevice> findDeviceListOnly() throws Exception;
 
     DeviceCustom findDeviceByDeviceId(String deviceId) throws Exception;
     DeviceCustom findDeviceById(Integer id) throws Exception;

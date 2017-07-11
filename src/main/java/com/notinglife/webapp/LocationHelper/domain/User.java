@@ -1,5 +1,6 @@
 package com.notinglife.webapp.LocationHelper.domain;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.notinglife.webapp.LocationHelper.utils.RegexValidator;
 
 import javax.validation.constraints.Pattern;
@@ -8,21 +9,17 @@ import java.util.Date;
 
 public class User implements Serializable {
     private Integer id;
-
     @Pattern(regexp = RegexValidator.REGEX_USERNAME, message = "{user.username.error}")
     private String username;
 
     private String password;
 
     private String salt;
-
-    @Pattern(regexp = RegexValidator.REGEX_EMAIL,message = "{user.email.error}")
+    @Pattern(regexp = RegexValidator.REGEX_EMAIL, message = "{user.email.error}")
     private String emailAddress;
 
     private Boolean emailVerified;
-
     private Date createTime;
-
     private Date updateTime;
 
     private static final long serialVersionUID = 1L;
@@ -75,18 +72,19 @@ public class User implements Serializable {
         this.emailVerified = emailVerified;
     }
 
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss" , locale = "zh" , timezone="GMT+8")
     public Date getCreateTime() {
         return createTime;
     }
-
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss" , locale = "zh" , timezone="GMT+8")
     public void setCreateTime(Date createTime) {
         this.createTime = createTime;
     }
-
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss" , locale = "zh" , timezone="GMT+8")
     public Date getUpdateTime() {
         return updateTime;
     }
-
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", locale = "zh" , timezone="GMT+8")
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
     }
@@ -104,13 +102,13 @@ public class User implements Serializable {
         }
         User other = (User) that;
         return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
-            && (this.getUsername() == null ? other.getUsername() == null : this.getUsername().equals(other.getUsername()))
-            && (this.getPassword() == null ? other.getPassword() == null : this.getPassword().equals(other.getPassword()))
-            && (this.getSalt() == null ? other.getSalt() == null : this.getSalt().equals(other.getSalt()))
-            && (this.getEmailAddress() == null ? other.getEmailAddress() == null : this.getEmailAddress().equals(other.getEmailAddress()))
-            && (this.getEmailVerified() == null ? other.getEmailVerified() == null : this.getEmailVerified().equals(other.getEmailVerified()))
-            && (this.getCreateTime() == null ? other.getCreateTime() == null : this.getCreateTime().equals(other.getCreateTime()))
-            && (this.getUpdateTime() == null ? other.getUpdateTime() == null : this.getUpdateTime().equals(other.getUpdateTime()));
+                && (this.getUsername() == null ? other.getUsername() == null : this.getUsername().equals(other.getUsername()))
+                && (this.getPassword() == null ? other.getPassword() == null : this.getPassword().equals(other.getPassword()))
+                && (this.getSalt() == null ? other.getSalt() == null : this.getSalt().equals(other.getSalt()))
+                && (this.getEmailAddress() == null ? other.getEmailAddress() == null : this.getEmailAddress().equals(other.getEmailAddress()))
+                && (this.getEmailVerified() == null ? other.getEmailVerified() == null : this.getEmailVerified().equals(other.getEmailVerified()))
+                && (this.getCreateTime() == null ? other.getCreateTime() == null : this.getCreateTime().equals(other.getCreateTime()))
+                && (this.getUpdateTime() == null ? other.getUpdateTime() == null : this.getUpdateTime().equals(other.getUpdateTime()));
     }
 
     @Override
@@ -146,4 +144,7 @@ public class User implements Serializable {
         sb.append("]");
         return sb.toString();
     }
+
+
+
 }

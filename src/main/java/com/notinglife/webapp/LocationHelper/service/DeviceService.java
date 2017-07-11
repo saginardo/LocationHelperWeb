@@ -1,6 +1,7 @@
 package com.notinglife.webapp.LocationHelper.service;
 
 import com.notinglife.webapp.LocationHelper.domain.DeviceCustom;
+import com.notinglife.webapp.LocationHelper.domain.LocationDevice;
 
 import java.util.List;
 
@@ -30,4 +31,7 @@ public interface DeviceService {
     DeviceCustom findDeviceByDeviceId(String deviceId) throws Exception;
     DeviceCustom findDeviceById(Integer id) throws  Exception;
 
+
+    //APP用的数据
+    List<LocationDevice> findDeviceListOnly() throws Exception;
 }

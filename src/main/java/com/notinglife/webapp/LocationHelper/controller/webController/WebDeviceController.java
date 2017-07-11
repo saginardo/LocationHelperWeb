@@ -1,4 +1,4 @@
-package com.notinglife.webapp.LocationHelper.controller;
+package com.notinglife.webapp.LocationHelper.controller.webController;
 
 import com.notinglife.webapp.LocationHelper.domain.DeviceCustom;
 import com.notinglife.webapp.LocationHelper.domain.LocationDevice;
@@ -12,10 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
@@ -31,16 +28,19 @@ import java.util.List;
  * @version v1.0
  * @date 2017-07-05 10:05
  */
-@Controller
-public class DeviceController {
-    private static final String TAG = "DeviceController";
+@Controller("webDeviceController")
+public class WebDeviceController {
+    private static final String TAG = "webDeviceController";
     private static Logger logger = LogManager.getLogger(TAG);
 
-    //查询设备依赖的service层
-    @Autowired
-    private DeviceServiceImpl deviceService;
-    @Autowired
-    private UserService userService;
+    private final DeviceServiceImpl deviceService;
+    private final UserService userService;
+
+    @Autowired    //查询设备依赖的service层
+    public WebDeviceController(UserService userService, DeviceServiceImpl deviceService) {
+        this.userService = userService;
+        this.deviceService = deviceService;
+    }
 
     //查询单个设备
     @RequestMapping("/queryDevice")
@@ -75,10 +75,9 @@ public class DeviceController {
     }
 
 
-
     //编辑单个设备
     @RequestMapping(value = "/editDevice", method = {RequestMethod.GET, RequestMethod.POST})
-    public String editDevice(Model model,HttpServletRequest request, @RequestParam(value = "id") Integer id) throws Exception {
+    public String editDevice(Model model, HttpServletRequest request, @RequestParam(value = "id") Integer id) throws Exception {
 
         //调用service查询商品信息
         LocationDevice device = deviceService.findDeviceById(id);
@@ -90,7 +89,7 @@ public class DeviceController {
             String username = user1.getUsername();
             usernames.add(username);
         }
-        model.addAttribute("usernames",usernames);
+        model.addAttribute("usernames", usernames);
 
         return "device/deviceProfile";
     }
@@ -113,7 +112,7 @@ public class DeviceController {
 
     //删除单个设备
     @RequestMapping(value = "/deleteDevice", method = {RequestMethod.GET, RequestMethod.POST})
-    public String deleteDevice(Model model,HttpServletRequest request, @RequestParam(value = "id") Integer id) throws Exception {
+    public String deleteDevice(Model model, HttpServletRequest request, @RequestParam(value = "id") Integer id) throws Exception {
 
         //调用service查询商品信息
         int i = deviceService.deleteDeviceById(id);
