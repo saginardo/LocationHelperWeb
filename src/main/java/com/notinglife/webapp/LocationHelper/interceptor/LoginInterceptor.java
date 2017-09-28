@@ -1,11 +1,6 @@
 package com.notinglife.webapp.LocationHelper.interceptor;
 
-import com.alibaba.fastjson.JSON;
-import com.notinglife.webapp.LocationHelper.domain.MsgData;
-import com.notinglife.webapp.LocationHelper.domain.User;
 import com.notinglife.webapp.LocationHelper.service.UserService;
-import com.notinglife.webapp.LocationHelper.utils.AuthUtil;
-import com.notinglife.webapp.LocationHelper.utils.RegexValidator;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,16 +9,13 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import java.util.ArrayList;
-
-import static com.notinglife.webapp.LocationHelper.utils.GlobalConstant.MSG_TOEKN_ERROR;
-import static com.notinglife.webapp.LocationHelper.utils.GlobalConstant.MSG_TOEKN_EXPIRES;
 
 /**
  * @author saginardo
  * @date 2017-04-14 9:09
  */
+
+
 public class LoginInterceptor implements HandlerInterceptor {
 
     @Autowired
@@ -39,7 +31,9 @@ public class LoginInterceptor implements HandlerInterceptor {
         logger.info(TAG + "appUUID : " + appUUID + "  token : " + token);
 
 
-        logger.info(TAG + "URL : " + url);
+
+        return true;
+/*        logger.info(TAG + "URL : " + url);
         if (RegexValidator.isUrlInterceptor(url)) {
             return true;
         }
@@ -85,7 +79,7 @@ public class LoginInterceptor implements HandlerInterceptor {
 
         //web版本的拦截，用户没有登录，没有session 重定向到到登录界面
         response.sendRedirect(request.getContextPath() + "/login.jsp");
-        return false;
+        return false;*/
     }
 
     @Override

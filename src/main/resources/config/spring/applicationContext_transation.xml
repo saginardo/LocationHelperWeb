@@ -32,10 +32,7 @@
             <tx:method name="select*" propagation="SUPPORTS" isolation="DEFAULT"/>
         </tx:attributes>
     </tx:advice>
-    <!--@AspectJ AOP框架
-    execution 匹配方法执行，使用方法
-        execution(<访问修饰符>?<返回类型><方法名>(<参数>)<异常>)
-    -->
+
     <aop:config>
         <aop:advisor advice-ref="txAdvice" pointcut="execution(* com.notinglife.webapp.LocationHelper.service.impl.*.*(..))"/>
     </aop:config>

@@ -1,0 +1,4 @@
+jdbc.driver=com.mysql.jdbc.Driver
+jdbc.url=jdbc:mysql://xxxx:xxx/location_helper?characterEncoding=utf8&serverTimezone=UTC&useSSL=false
+jdbc.username=xxxx
+jdbc.password=xxxxxx
